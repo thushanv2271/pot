@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="90"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+    <radialGradient id="vig" cx="50%" cy="42%" r="75%">
+      <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.7"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffae00" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#ff4d2d" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#7a00ff" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="#0a0a0a"/>
+
+  <!-- iridescent light blobs -->
+  <circle cx="360" cy="300" r="280" fill="#ffae00" opacity="0.55" filter="url(#blur)"/>
+  <circle cx="820" cy="240" r="240" fill="#ff4d2d" opacity="0.45" filter="url(#blur)"/>
+  <circle cx="640" cy="560" r="320" fill="#7a00ff" opacity="0.4" filter="url(#blur)"/>
+
+  <!-- faint technical grid -->
+  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="1">
+    <line x1="0" y1="0" x2="0" y2="800"/><line x1="120" y1="0" x2="120" y2="800"/><line x1="240" y1="0" x2="240" y2="800"/><line x1="360" y1="0" x2="360" y2="800"/><line x1="480" y1="0" x2="480" y2="800"/><line x1="600" y1="0" x2="600" y2="800"/><line x1="720" y1="0" x2="720" y2="800"/><line x1="840" y1="0" x2="840" y2="800"/><line x1="960" y1="0" x2="960" y2="800"/><line x1="1080" y1="0" x2="1080" y2="800"/><line x1="1200" y1="0" x2="1200" y2="800"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/><line x1="0" y1="120" x2="1200" y2="120"/><line x1="0" y1="240" x2="1200" y2="240"/><line x1="0" y1="360" x2="1200" y2="360"/><line x1="0" y1="480" x2="1200" y2="480"/><line x1="0" y1="600" x2="1200" y2="600"/><line x1="0" y1="720" x2="1200" y2="720"/>
+  </g>
+
+  <rect width="1200" height="800" fill="url(#vig)"/>
+  <rect width="1200" height="800" filter="url(#grain)" opacity="0.5"/>
+
+  <!-- giant index numeral -->
+  <text x="60" y="700" font-family="Times New Roman, serif" font-size="360"
+        fill="#ffffff" fill-opacity="0.06" font-weight="400">03</text>
+
+  <!-- title -->
+  <text x="60" y="430" font-family="Times New Roman, serif" font-size="118"
+        fill="url(#sheen)" letter-spacing="2">HOTEL SYSTEM</text>
+  <text x="64" y="490" font-family="Helvetica, Arial, sans-serif" font-size="26"
+        fill="#cfcfca" letter-spacing="6" text-transform="uppercase">C++ · DESIGN PATTERNS</text>
+
+  <!-- corner ticks -->
+  <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" fill="none">
+    <path d="M40 40 h40 M40 40 v40"/>
+    <path d="M1160 760 h-40 M1160 760 v-40"/>
+  </g>
+</svg>

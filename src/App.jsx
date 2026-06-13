@@ -2,6 +2,46 @@ import React, { Suspense } from 'react'
 import CreativeCanvas from './CreativeCanvas.jsx'
 
 /**
+ * Project data. Each `cover` points at public/projects/<slug>.svg — drop a real
+ * screenshot in with the same filename to replace the generated cover art.
+ */
+const PROJECTS = [
+  {
+    slug: 'scholar',
+    name: 'Scholar Web App',
+    blurb:
+      'A school-management platform — React + Material UI dashboard backed by a C# (.NET) server. Policy, contributions and admin in one minimal interface.',
+    stack: ['React', 'Material UI', 'TypeScript', 'C# / .NET'],
+    href: 'https://github.com/thushanvithana/ScholarWebApp',
+    featured: true,
+  },
+  {
+    slug: 'mern',
+    name: 'MERN Stack Platform',
+    blurb:
+      'Full-stack JavaScript application built on the MongoDB · Express · React · Node stack — my deep-dive into end-to-end web engineering.',
+    stack: ['MongoDB', 'Express', 'React', 'Node.js'],
+    href: 'https://github.com/thushanvithana/MERN-STACK',
+  },
+  {
+    slug: 'hotel',
+    name: 'Hotel Management System',
+    blurb:
+      'A C++ reservation and operations system implemented with multiple classic design patterns — an exercise in clean, extensible architecture.',
+    stack: ['C++', 'OOP', 'Design Patterns'],
+    href: 'https://github.com/thushanvithana/Hotel-Management-System',
+  },
+  {
+    slug: 'task',
+    name: 'Smart Task Manager',
+    blurb:
+      'A productivity app with a C# service layer and a JavaScript frontend — task tracking with a fast, focused UI.',
+    stack: ['C# / .NET', 'JavaScript', 'REST'],
+    href: 'https://github.com/thushanvithana/SmartTaskManagerFrontend',
+  },
+]
+
+/**
  * App layout follows the Apple-style scroll narrative:
  *  - A FIXED .canvas-viewport (z-index 1) holds the persistent 3D scene.
  *  - A natively scrolling .scroll-track (z-index 2) layers 4 full-height
@@ -76,28 +116,35 @@ export default function App() {
 
         {/* 4 — PROJECTS + CONTACT (negative space on the right) */}
         <section className="section section--contact">
-          <div className="section-inner align-right">
+          <div className="section-inner section-inner--wide align-right">
             <p className="eyebrow">03 — Selected Work</p>
-            <ul className="project-list">
-              <li>
-                <a href="https://github.com/thushanvithana/MERN-STACK" target="_blank" rel="noreferrer">
-                  <span className="proj-name">MERN Stack Platform</span>
-                  <span className="proj-meta">Full-stack · JavaScript</span>
+
+            <div className="project-grid">
+              {PROJECTS.map((p) => (
+                <a
+                  key={p.slug}
+                  className={`project-card${p.featured ? ' project-card--featured' : ''}`}
+                  href={p.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className="card-media">
+                    <img src={`projects/${p.slug}.svg`} alt={`${p.name} cover`} loading="lazy" />
+                    {p.featured && <span className="card-badge">Featured</span>}
+                  </div>
+                  <div className="card-body">
+                    <h3 className="card-name">{p.name}</h3>
+                    <p className="card-blurb">{p.blurb}</p>
+                    <ul className="card-stack">
+                      {p.stack.map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
+                    </ul>
+                    <span className="card-cta">View on GitHub ↗</span>
+                  </div>
                 </a>
-              </li>
-              <li>
-                <a href="https://github.com/thushanvithana/Hotel-Management-System" target="_blank" rel="noreferrer">
-                  <span className="proj-name">Hotel Management System</span>
-                  <span className="proj-meta">C++ · Design Patterns</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/thushanvithana/Build-a-Virtual-World" target="_blank" rel="noreferrer">
-                  <span className="proj-name">Build a Virtual World</span>
-                  <span className="proj-meta">A-Frame · WebXR</span>
-                </a>
-              </li>
-            </ul>
+              ))}
+            </div>
 
             <nav className="links">
               <a href="https://github.com/thushanvithana" target="_blank" rel="noreferrer">GitHub</a>
@@ -105,7 +152,7 @@ export default function App() {
               <a href="https://www.youtube.com/@ThushanVithana" target="_blank" rel="noreferrer">YouTube</a>
               <a href="mailto:thushan.v@azendtech.com">Email</a>
             </nav>
-            <p className="signoff">© 2026 Thushan Vithana — Designed & built in the dark.</p>
+            <p className="signoff">© 2026 Thushan Vithana — Designed &amp; built in the dark.</p>
           </div>
         </section>
       </main>
