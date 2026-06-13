@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import CreativeCanvas from './CreativeCanvas.jsx'
+import Logo from './Logo.jsx'
 
 /**
  * Project data. Each `cover` points at public/projects/<slug>.svg — drop a real
@@ -49,17 +50,38 @@ const PROJECTS = [
  *    CreativeCanvas, so the chrome object and the copy move as one story.
  */
 export default function App() {
+  // Two themes: 'bone' (warm light editorial) and 'midnight' (the original
+  // dark luxury look). Persisted so the choice sticks between visits.
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'bone'
+    return localStorage.getItem('tv-theme') || 'bone'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('tv-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () =>
+    setTheme((t) => (t === 'bone' ? 'midnight' : 'bone'))
+
   return (
     <div className="app">
       <header className="top-bar">
-        <span className="brand">TV</span>
-        <span className="brand-meta">Creative Technologist · 2026</span>
+        <Logo className="brand-logo" />
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Switch theme"
+        >
+          {theme === 'bone' ? 'Midnight ◑' : 'Bone ◐'}
+        </button>
       </header>
 
       {/* Layer 1 — the fixed, ever-present 3D stage. */}
       <div className="canvas-viewport">
         <Suspense fallback={null}>
-          <CreativeCanvas />
+          <CreativeCanvas theme={theme} />
         </Suspense>
         <div className="vignette" aria-hidden="true" />
         <div className="grain" aria-hidden="true" />

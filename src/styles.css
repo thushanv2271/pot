@@ -1,16 +1,38 @@
 /* ============================================================
    Thushan Vithana — Portfolio
-   Aesthetic: dark, minimalist, luxury-brutalist.
+   Two themes:
+     :root              -> "Bone"     (warm light editorial)
+     [data-theme=midnight] -> "Midnight" (dark luxury-brutalist)
    ============================================================ */
 
 :root {
+  --bg: #ece7dd;
+  --ink: #1a1714;
+  --ink-dim: #6f675c;
+  --line: rgba(26, 23, 20, 0.14);
+  --accent: #a85a1f; /* warm bronze, echoing the 3D rim light */
+  --vignette: rgba(60, 42, 18, 0.18);
+  --grain-blend: multiply;
+  --grain-opacity: 0.05;
+  --card-bg: rgba(26, 23, 20, 0.025);
+  --card-hover: rgba(168, 90, 31, 0.06);
+  --card-border-hover: rgba(168, 90, 31, 0.5);
+  --serif: 'Times New Roman', Georgia, serif;
+  --sans: 'Helvetica Neue', Arial, system-ui, sans-serif;
+}
+
+[data-theme='midnight'] {
   --bg: #0a0a0a;
   --ink: #f4f4f2;
   --ink-dim: #8a8a86;
   --line: rgba(244, 244, 242, 0.12);
-  --accent: #1f4bff; /* deep neon blue, echoing the 3D rim light */
-  --serif: 'Times New Roman', Georgia, serif;
-  --sans: 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --accent: #1f4bff; /* deep neon blue */
+  --vignette: rgba(0, 0, 0, 0.55);
+  --grain-blend: overlay;
+  --grain-opacity: 0.05;
+  --card-bg: rgba(255, 255, 255, 0.015);
+  --card-hover: rgba(31, 75, 255, 0.05);
+  --card-border-hover: rgba(31, 75, 255, 0.55);
 }
 
 * {
@@ -31,6 +53,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  transition: background 0.6s ease, color 0.6s ease;
 }
 
 ::selection {
@@ -53,22 +76,37 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.4rem 2.2rem;
+  padding: 1.3rem 2.2rem;
+  /* White contents + difference blend keeps the logo & toggle readable over
+     any theme background and the moving 3D object beneath. */
+  color: #fff;
   mix-blend-mode: difference;
   pointer-events: none;
 }
 
-.brand {
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  letter-spacing: 0.06em;
+.brand-logo {
+  height: 34px;
+  width: auto;
+  color: #fff;
 }
 
-.brand-meta {
-  font-size: 0.7rem;
-  letter-spacing: 0.28em;
+.theme-toggle {
+  pointer-events: auto;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ink-dim);
+  color: #fff;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.65;
 }
 
 /* ---- Layer 1: fixed 3D viewport ----------------------------- */
@@ -95,7 +133,7 @@ body {
   background: radial-gradient(
     ellipse at center,
     transparent 35%,
-    rgba(0, 0, 0, 0.55) 100%
+    var(--vignette) 100%
   );
 }
 
@@ -104,9 +142,9 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+  mix-blend-mode: var(--grain-blend);
 }
 
 /* ---- Layer 2: scrolling narrative --------------------------- */
@@ -240,15 +278,15 @@ body {
   text-decoration: none;
   color: var(--ink);
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.015);
+  background: var(--card-bg);
   border-radius: 2px;
   overflow: hidden;
   transition: border-color 0.4s ease, transform 0.4s ease, background 0.4s ease;
 }
 
 .project-card:hover {
-  border-color: rgba(31, 75, 255, 0.55);
-  background: rgba(31, 75, 255, 0.04);
+  border-color: var(--card-border-hover);
+  background: var(--card-hover);
   transform: translateY(-4px);
 }
 
@@ -289,7 +327,7 @@ body {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: #fff;
-  background: rgba(31, 75, 255, 0.85);
+  background: var(--accent);
   padding: 0.35rem 0.6rem;
   border-radius: 2px;
 }
@@ -405,8 +443,11 @@ body {
   .skill-grid {
     grid-template-columns: 1fr;
   }
-  .brand-meta {
-    display: none;
+  .brand-logo {
+    height: 26px;
+  }
+  .top-bar {
+    padding: 1rem 1.3rem;
   }
 }
 

@@ -25,7 +25,24 @@ const macro = {
 // Live, normalised pointer position (-1 .. 1). Read inside useFrame.
 const pointer = { x: 0, y: 0 }
 
-function ChromeKnot() {
+// Per-theme scene palette. The canvas itself stays transparent so the themed
+// CSS background shows through; only the object + lights change.
+const THEME_CONFIG = {
+  midnight: {
+    objColor: '#15151c',
+    rim: '#1f4bff', // deep neon blue
+    ambient: 0.15,
+    env: ['#ffffff', '#2a4cff', '#7a00ff', '#0a0a0a'],
+  },
+  bone: {
+    objColor: '#1c1814',
+    rim: '#ff9d3c', // warm bronze
+    ambient: 0.4,
+    env: ['#fff6e6', '#ffb04a', '#ff6a3c', '#ece7dd'],
+  },
+}
+
+function ChromeKnot({ palette }) {
   const group = useRef()
   const material = useRef()
   const { camera } = useThree()
@@ -79,7 +96,7 @@ function ChromeKnot() {
             PBR + iridescence while adding animated noise-based vertex flow. */}
         <MeshDistortMaterial
           ref={material}
-          color="#15151c"
+          color={palette.objColor}
           distort={0.32}
           speed={1.8}
           roughness={0.1}
@@ -96,54 +113,37 @@ function ChromeKnot() {
   )
 }
 
-function Scene() {
+function Scene({ palette }) {
+  const [c0, c1, c2, c3] = palette.env
   return (
     <>
       {/* Sharp white key light from the top-left. */}
       <directionalLight position={[-6, 6, 4]} intensity={3.2} color="#ffffff" />
-      {/* Faint deep neon-blue rim light from the bottom-right to catch edges. */}
-      <directionalLight position={[6, -5, -3]} intensity={1.6} color="#1f4bff" />
-      <ambientLight intensity={0.15} />
+      {/* Faint rim light from the bottom-right to catch the edges (themed). */}
+      <directionalLight position={[6, -5, -3]} intensity={1.6} color={palette.rim} />
+      <ambientLight intensity={palette.ambient} />
 
-      <ChromeKnot />
+      <ChromeKnot palette={palette} />
 
       {/*
         A self-contained studio environment built from light cards — gives the
         physical material something to reflect without fetching an external HDR,
-        so reflections look premium even fully offline.
+        so reflections look premium even fully offline. Re-keyed per theme so
+        the reflections recolour when the palette changes.
       */}
-      <Environment resolution={256} frames={1}>
-        <Lightformer
-          intensity={3}
-          color="#ffffff"
-          position={[-5, 5, 5]}
-          scale={[4, 4, 1]}
-        />
-        <Lightformer
-          intensity={2}
-          color="#2a4cff"
-          position={[6, -4, -4]}
-          scale={[5, 5, 1]}
-        />
-        <Lightformer
-          intensity={0.7}
-          color="#7a00ff"
-          position={[0, 0, -6]}
-          scale={[12, 12, 1]}
-        />
-        <Lightformer
-          intensity={1}
-          color="#0a0a0a"
-          position={[0, -6, 2]}
-          scale={[10, 4, 1]}
-        />
+      <Environment key={c0} resolution={256} frames={1}>
+        <Lightformer intensity={3} color={c0} position={[-5, 5, 5]} scale={[4, 4, 1]} />
+        <Lightformer intensity={2} color={c1} position={[6, -4, -4]} scale={[5, 5, 1]} />
+        <Lightformer intensity={0.7} color={c2} position={[0, 0, -6]} scale={[12, 12, 1]} />
+        <Lightformer intensity={1} color={c3} position={[0, -6, 2]} scale={[10, 4, 1]} />
       </Environment>
     </>
   )
 }
 
-export default function CreativeCanvas() {
+export default function CreativeCanvas({ theme = 'bone' }) {
   const fovRef = useRef()
+  const palette = THEME_CONFIG[theme] || THEME_CONFIG.bone
 
   // --- Pointer parallax ----------------------------------------------------
   useEffect(() => {
@@ -230,7 +230,8 @@ export default function CreativeCanvas() {
       gl={{ antialias: true, alpha: true }}
       camera={{ position: [0, 0, 5], fov: 38, near: 0.1, far: 100 }}
       onCreated={({ gl, camera }) => {
-        gl.setClearColor('#0a0a0a', 1)
+        // Transparent clear so the themed CSS background shows through.
+        gl.setClearColor('#000000', 0)
         fovRef.current = camera
         // R3F resizes the renderer automatically with the canvas element, but
         // we keep the camera aspect locked to the viewport explicitly so the
@@ -243,7 +244,7 @@ export default function CreativeCanvas() {
         onResize()
       }}
     >
-      <Scene />
+      <Scene palette={palette} />
     </Canvas>
   )
 }
