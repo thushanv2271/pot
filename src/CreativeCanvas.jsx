@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Environment, Lightformer } from '@react-three/drei'
+import { Environment, Lightformer, MeshDistortMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -27,10 +27,21 @@ const pointer = { x: 0, y: 0 }
 
 function ChromeKnot() {
   const group = useRef()
+  const material = useRef()
   const { camera } = useThree()
 
   useFrame((_, delta) => {
     if (!group.current) return
+
+    // --- Liquid surface ---------------------------------------------------
+    // The cursor's distance from centre swells the flow, so the chrome ripples
+    // harder as you move — like disturbing the surface of liquid metal.
+    if (material.current) {
+      const stir = Math.min(1, Math.hypot(pointer.x, pointer.y))
+      const targetDistort = 0.32 + stir * 0.18
+      material.current.distort +=
+        (targetDistort - material.current.distort) * (1 - Math.pow(0.02, delta))
+    }
 
     // Smooth, frame-rate independent damping factor.
     const damp = 1 - Math.pow(0.0008, delta)
@@ -62,9 +73,15 @@ function ChromeKnot() {
   return (
     <group ref={group}>
       <mesh castShadow>
-        <torusKnotGeometry args={[1, 0.3, 120, 16]} />
-        <meshPhysicalMaterial
+        {/* Heavily tessellated so the liquid displacement reads as smooth flow. */}
+        <torusKnotGeometry args={[1, 0.3, 380, 48]} />
+        {/* MeshDistortMaterial extends MeshPhysicalMaterial: it keeps the chrome
+            PBR + iridescence while adding animated noise-based vertex flow. */}
+        <MeshDistortMaterial
+          ref={material}
           color="#15151c"
+          distort={0.32}
+          speed={1.8}
           roughness={0.1}
           metalness={0.9}
           clearcoat={1.0}
