@@ -19,7 +19,7 @@ function ProjectCard({
   return (
     <article
       className={cn(
-        "glass-deep group relative flex h-full flex-col overflow-hidden rounded-3xl transition-all duration-500 hover:border-white/20",
+        "glass-deep group relative flex h-full flex-col overflow-hidden rounded-3xl transition-all duration-500 hover:border-line-strong",
         className
       )}
     >
@@ -62,7 +62,7 @@ function ProjectCard({
             <button
               key={tech}
               onClick={() => onPickTech(tech)}
-              className="rounded-md border border-line bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-dim transition-colors hover:border-cyan/50 hover:text-cyan"
+              className="rounded-md border border-line bg-veil px-2.5 py-1 font-mono text-[11px] text-dim transition-colors hover:border-cyan/50 hover:text-cyan"
             >
               {tech}
             </button>
@@ -127,7 +127,7 @@ function FilterBar({
             "rounded-full border px-4 py-1.5 font-mono text-xs transition-all duration-300",
             filter === f
               ? "border-electric/60 bg-electric/10 text-electric shadow-glow-blue"
-              : "border-line text-dim hover:border-white/25 hover:text-ink"
+              : "border-line text-dim hover:border-line-strong hover:text-ink"
           )}
         >
           {f}
@@ -140,7 +140,7 @@ function FilterBar({
 function Heading() {
   return (
     <div className="text-center">
-      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-4 py-1.5 font-mono text-xs tracking-widest text-cyan uppercase">
+      <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-veil px-4 py-1.5 font-mono text-xs tracking-widest text-cyan uppercase">
         <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-cyan" />
         03 · Projects
       </p>
@@ -235,7 +235,7 @@ export function Projects() {
           <motion.div
             ref={trackRef}
             style={{ x }}
-            className="flex w-max gap-8 px-[max(2rem,calc((100vw-72rem)/2+2rem))]"
+            className="flex w-max gap-8 px-[max(2rem,calc((100vw-72rem)/2+2rem))] will-change-transform"
           >
             <AnimatePresence mode="popLayout">
               {visible.map((project) => (
@@ -272,7 +272,7 @@ export function Projects() {
 
         {/* scrub progress */}
         <div className="mx-auto mt-6 w-full max-w-6xl px-8">
-          <div className="h-px w-full bg-white/[0.08]">
+          <div className="h-px w-full bg-mist">
             <motion.div
               style={{ scaleX: progressScale }}
               className="h-px origin-left bg-gradient-to-r from-electric via-cyan to-violet"

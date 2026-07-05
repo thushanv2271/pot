@@ -63,7 +63,7 @@ function DeckCard({ job, index, total }: { job: Job; index: number; total: numbe
           {job.stack.map((tech) => (
             <span
               key={tech}
-              className="rounded-md border border-line bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-dim"
+              className="rounded-md border border-line bg-veil px-2.5 py-1 font-mono text-[11px] text-dim"
             >
               {tech}
             </span>

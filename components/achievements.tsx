@@ -26,7 +26,7 @@ export function Achievements() {
               <motion.div
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="glass-deep group relative h-full overflow-hidden rounded-2xl p-6 transition-colors duration-300 hover:border-white/20 md:p-7"
+                className="glass-deep group relative h-full overflow-hidden rounded-2xl p-6 transition-colors duration-300 hover:border-line-strong md:p-7"
               >
                 <span
                   className="mb-5 grid h-12 w-12 place-items-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"

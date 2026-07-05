@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { BookMarked, GitCommit, Github, Star, Users } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
@@ -128,30 +128,44 @@ function useGithubData() {
 }
 
 const LEVEL_COLORS = [
-  "rgba(148,163,184,0.08)",
+  "var(--color-veil)",
   "rgba(59,130,246,0.35)",
   "rgba(59,130,246,0.6)",
   "rgba(34,211,238,0.75)",
   "rgba(34,211,238,1)",
 ];
 
+/* Perf: one IntersectionObserver on the wrapper and plain CSS transitions
+ * with per-column delays — not 371 individually-observed motion elements. */
 function ContributionGraph({ contribs }: { contribs: Contribution[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
   // Chunk into weeks of 7 for the classic GitHub grid.
   const weeks: Contribution[][] = [];
   for (let i = 0; i < contribs.length; i += 7) weeks.push(contribs.slice(i, i + 7));
 
   return (
-    <div className="overflow-x-auto pb-2" role="img" aria-label="GitHub contribution graph, last 12 months">
+    <div
+      ref={ref}
+      className="overflow-x-auto pb-2"
+      role="img"
+      aria-label="GitHub contribution graph, last 12 months"
+    >
       <div className="flex min-w-max gap-[3px]">
         {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-col gap-[3px]">
+          <div
+            key={wi}
+            className="flex flex-col gap-[3px] transition-all duration-500 ease-out"
+            style={{
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateY(0)" : "translateY(8px)",
+              transitionDelay: `${Math.min(wi * 12, 700)}ms`,
+            }}
+          >
             {week.map((day) => (
-              <motion.span
+              <span
                 key={day.date}
-                initial={{ opacity: 0, scale: 0.4 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: Math.min(wi * 0.012, 0.7), duration: 0.25 }}
                 title={`${day.date}: ${day.count} contributions`}
                 className="h-[11px] w-[11px] rounded-[3px]"
                 style={{ backgroundColor: LEVEL_COLORS[Math.min(day.level, 4)] }}
@@ -202,7 +216,7 @@ export function GithubStats() {
         <Stagger className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {tiles.map((tile) => (
             <StaggerItem key={tile.label}>
-              <div className="glass-deep group rounded-2xl p-5 text-center transition-all duration-300 hover:border-white/20 md:p-6">
+              <div className="glass-deep group rounded-2xl p-5 text-center transition-all duration-300 hover:border-line-strong md:p-6">
                 <tile.icon
                   className="mx-auto mb-3 h-5 w-5 transition-transform duration-300 group-hover:scale-125"
                   style={{ color: tile.accent }}
@@ -257,7 +271,7 @@ export function GithubStats() {
                     </span>
                     <span className="font-mono text-xs text-faint">{lang.count} repos</span>
                   </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-mist">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${(lang.count / maxLang) * 100}%` }}
@@ -286,7 +300,7 @@ export function GithubStats() {
                   href={repo.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="glass group block h-full rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/25"
+                  className="glass group block h-full rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-line-strong"
                 >
                   <p className="truncate font-mono text-sm text-ink group-hover:text-cyan">
                     {repo.name}

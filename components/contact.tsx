@@ -34,7 +34,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full rounded-xl border border-line bg-white/[0.03] px-4 py-3 text-sm text-ink placeholder:text-faint/70 outline-none transition-all duration-300 focus:border-electric/60 focus:bg-white/[0.05] focus:shadow-glow-blue";
+  "w-full rounded-xl border border-line bg-veil px-4 py-3 text-sm text-ink placeholder:text-faint/70 outline-none transition-all duration-300 focus:border-electric/60 focus:bg-veil focus:shadow-glow-blue";
 
 /** Stylised Sri Lanka locator — fully self-contained SVG "map". */
 function LocationMap() {
@@ -145,7 +145,7 @@ export function Contact() {
             <Reveal direction="left" delay={0.05}>
               <a
                 href={`mailto:${SITE.email}`}
-                className="glass-deep group flex items-center gap-4 rounded-2xl p-5 transition-all duration-300 hover:border-white/20"
+                className="glass-deep group flex items-center gap-4 rounded-2xl p-5 transition-all duration-300 hover:border-line-strong"
               >
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-electric/10 text-electric transition-transform duration-300 group-hover:scale-110">
                   <Mail className="h-5 w-5" aria-hidden="true" />

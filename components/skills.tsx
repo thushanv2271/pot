@@ -83,7 +83,7 @@ export function Skills() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06, duration: 0.45 }}
                 whileHover={{ y: -5 }}
-                className="glass-deep group rounded-2xl p-5 transition-colors duration-300 hover:border-white/20"
+                className="glass-deep group rounded-2xl p-5 transition-colors duration-300 hover:border-line-strong"
               >
                 <div className="mb-3 flex items-center justify-between">
                   <h3 className="font-display font-medium text-ink">{skill.name}</h3>
@@ -95,7 +95,7 @@ export function Skills() {
                   </span>
                 </div>
                 <div
-                  className="h-1.5 overflow-hidden rounded-full bg-white/[0.06]"
+                  className="h-1.5 overflow-hidden rounded-full bg-mist"
                   role="progressbar"
                   aria-valuenow={skill.level}
                   aria-valuemin={0}

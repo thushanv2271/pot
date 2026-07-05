@@ -21,14 +21,18 @@ export function KineticDivider() {
       className="relative select-none overflow-hidden py-20 md:py-28"
     >
       <motion.div
-        style={{ opacity: glow }}
-        className="pointer-events-none absolute top-1/2 left-1/2 h-72 w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-electric/25 blur-[120px]"
+        style={{
+          opacity: glow,
+          background:
+            "radial-gradient(ellipse at center, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.08) 45%, transparent 72%)",
+        }}
+        className="pointer-events-none absolute top-1/2 left-1/2 h-96 w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full"
       />
       <motion.p
         style={{ x: xLeft }}
         className="font-display text-[clamp(3.5rem,11vw,10rem)] leading-[0.95] font-bold tracking-tight whitespace-nowrap text-transparent"
       >
-        <span style={{ WebkitTextStroke: "1.5px rgba(148,163,184,0.35)" }}>
+        <span style={{ WebkitTextStroke: "1.5px var(--stroke-faint)" }}>
           LET&apos;S BUILD · LET&apos;S BUILD · LET&apos;S BUILD
         </span>
       </motion.p>

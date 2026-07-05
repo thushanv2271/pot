@@ -21,7 +21,7 @@ export function SectionHeading({
       <Reveal>
         <p
           className={cn(
-            "mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-4 py-1.5 font-mono text-xs tracking-widest text-cyan uppercase"
+            "mb-4 inline-flex items-center gap-2 rounded-full border border-line bg-veil px-4 py-1.5 font-mono text-xs tracking-widest text-cyan uppercase"
           )}
         >
           <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse-glow" />

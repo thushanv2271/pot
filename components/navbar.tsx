@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -54,7 +55,7 @@ export function Navbar() {
         className={cn(
           "mx-auto flex h-16 max-w-6xl items-center justify-between px-5 transition-all duration-500 md:px-8",
           scrolled &&
-            "glass mt-3 max-w-5xl rounded-2xl shadow-[0_16px_40px_-20px_rgba(0,0,0,0.8)]"
+            "glass glass-blur mt-3 max-w-5xl rounded-2xl shadow-[0_16px_40px_-20px_rgba(0,0,0,0.35)]"
         )}
       >
         {/* Monogram */}
@@ -63,7 +64,7 @@ export function Navbar() {
           aria-label="Back to top"
           className="group flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"
         >
-          <span className="border-gradient relative grid h-9 w-9 place-items-center rounded-xl bg-white/[0.04] font-mono text-sm text-cyan transition-transform duration-300 group-hover:rotate-6">
+          <span className="border-gradient relative grid h-9 w-9 place-items-center rounded-xl bg-veil font-mono text-sm text-cyan transition-transform duration-300 group-hover:rotate-6">
             TV
           </span>
           <span className="hidden sm:block">
@@ -85,17 +86,18 @@ export function Navbar() {
               {active === link.href && (
                 <motion.span
                   layoutId="nav-pill"
-                  className="absolute inset-0 rounded-full bg-white/[0.06]"
+                  className="absolute inset-0 rounded-full bg-mist"
                   transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 />
               )}
               <span className="relative">{link.label}</span>
             </a>
           ))}
+          <ThemeToggle className="ml-2" />
           <a
             href={SITE.resume}
             download
-            className="ml-3 inline-flex h-9 items-center gap-2 rounded-full bg-gradient-to-r from-electric to-cyan px-4 text-sm font-semibold text-void transition-all hover:brightness-110 hover:shadow-glow-blue"
+            className="ml-2 inline-flex h-9 items-center gap-2 rounded-full bg-gradient-to-r from-electric to-cyan px-4 text-sm font-semibold text-white transition-all hover:brightness-110 hover:shadow-glow-blue"
           >
             <Download className="h-3.5 w-3.5" aria-hidden="true" />
             Resume
@@ -103,14 +105,17 @@ export function Navbar() {
         </nav>
 
         {/* Mobile toggle */}
+        <div className="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
         <button
-          className="grid h-10 w-10 place-items-center rounded-xl text-ink md:hidden"
+          className="grid h-10 w-10 place-items-center rounded-xl text-ink"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -121,7 +126,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="glass mx-4 mt-2 flex flex-col gap-1 rounded-2xl p-3 md:hidden"
+            className="glass glass-blur mx-4 mt-2 flex flex-col gap-1 rounded-2xl p-3 md:hidden"
             aria-label="Mobile"
           >
             {NAV_LINKS.map((link, i) => (
@@ -132,7 +137,7 @@ export function Navbar() {
                 initial={{ opacity: 0, x: -14 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.04 * i }}
-                className="rounded-xl px-4 py-3 text-base text-dim transition-colors hover:bg-white/[0.06] hover:text-ink"
+                className="rounded-xl px-4 py-3 text-base text-dim transition-colors hover:bg-mist hover:text-ink"
               >
                 {link.label}
               </motion.a>
@@ -140,7 +145,7 @@ export function Navbar() {
             <a
               href={SITE.resume}
               download
-              className="mt-1 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-electric to-cyan text-sm font-semibold text-void"
+              className="mt-1 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-electric to-cyan text-sm font-semibold text-white"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
               Download Resume

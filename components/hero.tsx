@@ -78,10 +78,14 @@ function CodeWindow() {
           </motion.code>
         ))}
       </pre>
-      {/* glow under the window */}
+      {/* glow under the window (gradient — no blur filter) */}
       <div
         aria-hidden="true"
-        className="absolute -inset-x-8 -bottom-10 -z-10 h-32 rounded-full bg-electric/20 blur-3xl"
+        className="absolute -inset-x-16 -bottom-16 -z-10 h-44 rounded-full"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(59,130,246,0.22) 0%, rgba(59,130,246,0.07) 45%, transparent 72%)",
+        }}
       />
     </motion.div>
   );
@@ -150,7 +154,9 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.86]);
   const opacity = useTransform(scrollYProgress, [0, 0.35, 0.85], [1, 1, 0]);
-  const blur = useTransform(scrollYProgress, (v) => `blur(${(v * 12).toFixed(2)}px)`);
+  // Quantised to whole pixels: the blur layer re-rasterises only ~12 times
+  // across the whole scrub instead of every scroll frame.
+  const blur = useTransform(scrollYProgress, (v) => `blur(${Math.round(v * 12)}px)`);
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -140]);
   const codeY = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const codeRotate = useTransform(scrollYProgress, [0, 1], [0, -7]);
@@ -168,7 +174,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-4 py-1.5 text-sm text-dim"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-veil px-4 py-1.5 text-sm text-dim"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald opacity-60" />

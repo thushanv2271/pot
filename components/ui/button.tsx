@@ -8,11 +8,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-gradient-to-r from-electric via-cyan to-violet text-void font-semibold shadow-glow-blue hover:shadow-glow-cyan hover:brightness-110 active:scale-[0.98]",
+          "bg-gradient-to-r from-electric via-cyan to-violet text-white font-semibold shadow-glow-blue hover:shadow-glow-cyan hover:brightness-110 active:scale-[0.98]",
         glass:
-          "glass text-ink hover:bg-white/10 hover:border-white/25 active:scale-[0.98]",
+          "glass text-ink hover:bg-mist hover:border-line-strong active:scale-[0.98]",
         ghost:
-          "text-dim hover:text-ink hover:bg-white/5 active:scale-[0.98]",
+          "text-dim hover:text-ink hover:bg-veil active:scale-[0.98]",
         outline:
           "border border-line text-ink hover:border-electric/60 hover:text-electric hover:shadow-glow-blue active:scale-[0.98]",
       },

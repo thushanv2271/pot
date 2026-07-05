@@ -21,8 +21,8 @@ function Portrait() {
         <div className="absolute inset-0 bg-gradient-to-br from-electric/15 via-transparent to-violet/15" />
         {/* Monogram placeholder */}
         <div className="absolute inset-0 grid place-items-center">
-          <span className="font-display text-8xl font-bold text-white/[0.07]">TV</span>
-          <span className="absolute bottom-6 left-6 right-6 rounded-2xl bg-black/40 px-4 py-3 text-center font-mono text-xs text-dim backdrop-blur-md">
+          <span className="font-display text-8xl font-bold text-ink/10">TV</span>
+          <span className="absolute bottom-6 left-6 right-6 rounded-2xl bg-void/80 px-4 py-3 text-center font-mono text-xs text-dim">
             {SITE.role} · {SITE.company}
           </span>
         </div>
@@ -115,7 +115,7 @@ export function About() {
           <div className="space-y-5">
             {STORY.map((block, i) => (
               <Reveal key={block.title} delay={0.08 * i}>
-                <div className="glass-deep group rounded-2xl p-6 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] md:p-7">
+                <div className="glass-deep group rounded-2xl p-6 transition-all duration-300 hover:border-line-strong hover:bg-veil md:p-7">
                   <div className="mb-3 flex items-center gap-3">
                     <span className="glass grid h-10 w-10 place-items-center rounded-xl transition-transform duration-300 group-hover:scale-110">
                       <block.icon className={`h-4.5 w-4.5 ${block.accent}`} aria-hidden="true" />
