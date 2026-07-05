@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
@@ -25,11 +28,18 @@ export function SectionHeading({
           {eyebrow}
         </p>
       </Reveal>
-      <Reveal delay={0.08}>
-        <h2 className="font-display text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+      {/* masked slide-up: the headline rises out of an invisible slot */}
+      <div className="overflow-hidden pb-1">
+        <motion.h2
+          initial={{ y: "105%" }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.85, delay: 0.05, ease: [0.21, 0.6, 0.35, 1] }}
+          className="font-display text-4xl font-semibold tracking-tight text-balance md:text-5xl"
+        >
           {title}
-        </h2>
-      </Reveal>
+        </motion.h2>
+      </div>
       {lead && (
         <Reveal delay={0.16}>
           <p

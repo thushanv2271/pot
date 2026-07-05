@@ -62,8 +62,11 @@
   to { background-position: -200% 0; }
 }
 
-html {
+/* Native smooth scrolling only when Lenis isn't driving the scroll */
+html:not(.lenis-smooth) {
   scroll-behavior: smooth;
+}
+html {
   scroll-padding-top: 5.5rem;
 }
 

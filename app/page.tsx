@@ -1,8 +1,10 @@
 import { AmbientBackground } from "@/components/ambient-background";
 import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
+import { Statement } from "@/components/statement";
 import { About } from "@/components/about";
 import { Skills } from "@/components/skills";
 import { Projects } from "@/components/projects";
@@ -11,12 +13,14 @@ import { Achievements } from "@/components/achievements";
 import { TechWall } from "@/components/tech-wall";
 import { GithubStats } from "@/components/github-stats";
 import { Testimonials } from "@/components/testimonials";
+import { KineticDivider } from "@/components/kinetic-divider";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
     <>
+      <SmoothScroll />
       <AmbientBackground />
       <CursorGlow />
       <ScrollProgress />
@@ -28,6 +32,7 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10">
         <Hero />
+        <Statement />
         <About />
         <Skills />
         <Projects />
@@ -36,6 +41,7 @@ export default function Home() {
         <TechWall />
         <GithubStats />
         <Testimonials />
+        <KineticDivider />
         <Contact />
       </main>
       <div className="relative z-10">

@@ -1,17 +1,24 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
 import { SectionHeading } from "@/components/section-heading";
 import { TECH_WALL } from "@/lib/data";
 
 const ACCENTS = ["#3b82f6", "#22d3ee", "#a78bfa", "#34d399"];
 
 /** Interactive technology wall: two counter-scrolling marquee rows that pause
- *  on hover, plus a full grid of tilt-on-hover cards. */
+ *  on hover and skew with your scroll velocity — flick the page and the wall
+ *  leans into the motion. */
 export function TechWall() {
   const half = Math.ceil(TECH_WALL.length / 2);
   const rowA = TECH_WALL.slice(0, half);
   const rowB = TECH_WALL.slice(half);
+
+  // Scroll-velocity → skew: the faster you scroll, the harder the rows lean.
+  const { scrollY } = useScroll();
+  const velocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(velocity, { stiffness: 300, damping: 50 });
+  const skewX = useTransform(smoothVelocity, [-2500, 2500], [8, -8]);
 
   return (
     <section id="stack" className="relative scroll-mt-24 overflow-hidden py-24 md:py-32">
@@ -28,9 +35,10 @@ export function TechWall() {
       </div>
 
       {/* Marquee rows — duplicated content for a seamless loop */}
-      <div
-        className="space-y-5"
+      <motion.div
+        className="space-y-5 will-change-transform"
         style={{
+          skewX,
           maskImage: "linear-gradient(90deg, transparent, black 12%, black 88%, transparent)",
           WebkitMaskImage: "linear-gradient(90deg, transparent, black 12%, black 88%, transparent)",
         }}
@@ -60,7 +68,7 @@ export function TechWall() {
             </div>
           </div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

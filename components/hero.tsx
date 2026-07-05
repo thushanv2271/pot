@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Download, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -144,11 +144,26 @@ function FloatingChips() {
 }
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  // Scrub the hero's exit with the scrollbar, Apple-style: while the tall
+  // section scrolls, the pinned stage recedes, blurs and splits in parallax.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.86]);
+  const opacity = useTransform(scrollYProgress, [0, 0.35, 0.85], [1, 1, 0]);
+  const blur = useTransform(scrollYProgress, (v) => `blur(${(v * 12).toFixed(2)}px)`);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -140]);
+  const codeY = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const codeRotate = useTransform(scrollYProgress, [0, 1], [0, -7]);
+
   return (
-    <section id="top" className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-16">
+    <section id="top" ref={ref} className="relative h-[172vh]">
+      <motion.div
+        style={{ scale, opacity, filter: blur }}
+        className="sticky top-0 flex h-screen items-center overflow-hidden pt-20 will-change-transform"
+      >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-16 px-5 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
         {/* ------------------------------- Copy ------------------------------- */}
-        <div>
+        <motion.div style={{ y: copyY }}>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -246,13 +261,13 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
-        </div>
+        </motion.div>
 
         {/* ---------------------------- Code visual ---------------------------- */}
-        <div className="relative">
+        <motion.div style={{ y: codeY, rotate: codeRotate }} className="relative">
           <CodeWindow />
           <FloatingChips />
-        </div>
+        </motion.div>
       </div>
 
       {/* scroll hint */}
@@ -272,6 +287,7 @@ export function Hero() {
           <span className="h-2 w-1 rounded-full bg-cyan" />
         </motion.span>
       </motion.a>
+      </motion.div>
     </section>
   );
 }
