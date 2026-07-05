@@ -151,27 +151,57 @@ function Heading() {
   );
 }
 
-export function Projects() {
-  const filters = useMemo(() => {
-    const all = new Set<string>();
-    PROJECTS.forEach((p) => p.stack.forEach((s) => all.add(s)));
-    return ["All", ...Array.from(all)];
-  }, []);
+function MobileProjects({
+  visible,
+  filters,
+  filter,
+  setFilter,
+}: {
+  visible: Project[];
+  filters: string[];
+  filter: string;
+  setFilter: (f: string) => void;
+}) {
+  return (
+    <section id="projects" className="relative scroll-mt-24 py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl space-y-8 px-4 sm:space-y-10 sm:px-5">
+        <Reveal>
+          <Heading />
+        </Reveal>
+        <FilterBar filters={filters} filter={filter} setFilter={setFilter} />
+        <div className="grid gap-6">
+          <AnimatePresence mode="popLayout">
+            {visible.map((project) => (
+              <motion.div
+                layout
+                key={project.slug}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.35 }}
+              >
+                <ProjectCard project={project} onPickTech={setFilter} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-  const [filter, setFilter] = useState("All");
-  const [isDesktop, setIsDesktop] = useState(false);
-  const visible =
-    filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.stack.includes(filter));
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  /* ---- Desktop: pinned section, vertical scroll scrubs the track sideways ---- */
+/** Desktop-only: useScroll target must live in the same component as the hook. */
+function DesktopProjects({
+  visible,
+  filters,
+  filter,
+  setFilter,
+}: {
+  visible: Project[];
+  filters: string[];
+  filter: string;
+  setFilter: (f: string) => void;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -180,49 +210,18 @@ export function Projects() {
   useLayoutEffect(() => {
     const measure = () => {
       if (!trackRef.current || !viewportRef.current) return;
-      setMaxShift(
-        Math.max(0, trackRef.current.scrollWidth - viewportRef.current.clientWidth)
-      );
+      setMaxShift(Math.max(0, trackRef.current.scrollWidth - viewportRef.current.clientWidth));
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [visible.length, isDesktop]);
+  }, [visible.length]);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
   const rawX = useTransform(scrollYProgress, [0.06, 0.94], [0, -maxShift]);
   const x = useSpring(rawX, { stiffness: 220, damping: 34, mass: 0.6 });
   const progressScale = useTransform(scrollYProgress, [0.06, 0.94], [0, 1]);
 
-  if (!isDesktop) {
-    /* ------------------------- Mobile: vertical cards ------------------------- */
-    return (
-      <section id="projects" className="relative scroll-mt-24 py-24">
-        <div className="mx-auto max-w-6xl space-y-10 px-5">
-          <Reveal><Heading /></Reveal>
-          <FilterBar filters={filters} filter={filter} setFilter={setFilter} />
-          <div className="grid gap-6">
-            <AnimatePresence mode="popLayout">
-              {visible.map((project) => (
-                <motion.div
-                  layout
-                  key={project.slug}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35 }}
-                >
-                  <ProjectCard project={project} onPickTech={setFilter} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  /* ---------------- Desktop: horizontal scroll-scrubbed gallery ---------------- */
   return (
     <section id="projects" ref={sectionRef} className="relative h-[320vh] scroll-mt-0">
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
@@ -252,7 +251,6 @@ export function Projects() {
                 </motion.div>
               ))}
             </AnimatePresence>
-            {/* end card: invitation to GitHub */}
             <a
               href="https://github.com/thushanvithana"
               target="_blank"
@@ -270,7 +268,6 @@ export function Projects() {
           </motion.div>
         </div>
 
-        {/* scrub progress */}
         <div className="mx-auto mt-6 w-full max-w-6xl px-8">
           <div className="h-px w-full bg-mist">
             <motion.div
@@ -285,4 +282,35 @@ export function Projects() {
       </div>
     </section>
   );
+}
+
+export function Projects() {
+  const filters = useMemo(() => {
+    const all = new Set<string>();
+    PROJECTS.forEach((p) => p.stack.forEach((s) => all.add(s)));
+    return ["All", ...Array.from(all)];
+  }, []);
+
+  const [filter, setFilter] = useState("All");
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [ready, setReady] = useState(false);
+  const visible = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.stack.includes(filter));
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    setReady(true);
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const shared = { visible, filters, filter, setFilter };
+
+  // SSR + first paint: mobile layout (no useScroll). After mount, pick layout.
+  if (!ready || !isDesktop) {
+    return <MobileProjects {...shared} />;
+  }
+
+  return <DesktopProjects {...shared} />;
 }

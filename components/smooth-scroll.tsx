@@ -5,11 +5,14 @@ import Lenis from "lenis";
 
 /**
  * Buttery inertial scrolling (Apple-style feel). Anchors keep working via
- * Lenis's built-in anchor handling. Disabled for reduced-motion users.
+ * Lenis's built-in anchor handling. Disabled for reduced-motion users and
+ * touch devices — native scroll feels better on phones.
  */
 export function SmoothScroll() {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (reduced || coarse) return;
 
     const lenis = new Lenis({
       lerp: 0.09,

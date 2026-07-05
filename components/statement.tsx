@@ -47,13 +47,17 @@ export function Statement() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.35"] });
 
   return (
-    <section ref={ref} aria-label="Personal manifesto" className="relative h-[260vh]">
-      <div className="sticky top-0 flex h-screen items-center">
-        <div className="mx-auto max-w-5xl px-6 md:px-8">
-          <p className="mb-8 font-mono text-xs tracking-[0.3em] text-faint uppercase">
+    <section
+      ref={ref}
+      aria-label="Personal manifesto"
+      className="relative h-[160vh] sm:h-[200vh] md:h-[260vh]"
+    >
+      <div className="sticky top-0 flex min-h-[100dvh] items-center">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
+          <p className="mb-6 font-mono text-[10px] tracking-[0.25em] text-faint uppercase sm:mb-8 sm:text-xs sm:tracking-[0.3em]">
             The philosophy
           </p>
-          <p className="font-display flex flex-wrap text-4xl leading-[1.18] font-semibold tracking-tight sm:text-5xl md:text-6xl">
+          <p className="font-display flex flex-wrap text-[1.65rem] leading-[1.22] font-semibold tracking-tight sm:text-4xl sm:leading-[1.18] md:text-5xl lg:text-6xl">
             {SENTENCE.map((word, i) => {
               const start = (i / SENTENCE.length) * 0.92;
               const end = start + 0.92 / SENTENCE.length;

@@ -16,8 +16,8 @@ export function Footer() {
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-electric/60 to-transparent"
       />
-      <div className="mx-auto max-w-6xl px-5 py-14 md:px-8">
-        <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between">
+      <div className="mx-auto max-w-6xl px-4 py-12 pb-[calc(3rem+env(safe-area-inset-bottom,0px))] sm:px-5 sm:py-14 md:px-8">
+        <div className="flex flex-col items-center gap-8 sm:gap-10 md:flex-row md:items-start md:justify-between">
           {/* Brand */}
           <div className="text-center md:text-left">
             <a href="#top" className="font-display text-xl font-semibold tracking-tight">
@@ -29,7 +29,7 @@ export function Footer() {
           </div>
 
           {/* Nav */}
-          <nav aria-label="Footer" className="grid grid-cols-3 gap-x-10 gap-y-2.5 text-sm">
+          <nav aria-label="Footer" className="grid w-full max-w-xs grid-cols-2 gap-x-6 gap-y-2.5 text-sm sm:max-w-none sm:grid-cols-3 sm:gap-x-10">
             {NAV_LINKS.map((l) => (
               <a key={l.href} href={l.href} className="text-dim transition-colors hover:text-cyan">
                 {l.label}

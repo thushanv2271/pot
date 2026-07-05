@@ -82,8 +82,8 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-24 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="contact" className="relative scroll-mt-24 py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="09 · Contact"
           title={
@@ -97,7 +97,7 @@ export function Contact() {
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           {/* --------------------------- Form --------------------------- */}
           <Reveal direction="right">
-            <form onSubmit={onSubmit} className="glass-deep border-gradient rounded-3xl p-7 md:p-9">
+            <form onSubmit={onSubmit} className="glass-deep border-gradient rounded-3xl p-5 sm:p-7 md:p-9">
               <div className="grid gap-6 sm:grid-cols-2">
                 <Field label="Your name">
                   <input name="name" required placeholder="Ada Lovelace" className={inputCls} />
@@ -123,12 +123,12 @@ export function Contact() {
                   />
                 </Field>
               </div>
-              <div className="mt-7 flex items-center justify-between gap-4">
+              <div className="mt-6 flex flex-col gap-4 sm:mt-7 sm:flex-row sm:items-center sm:justify-between">
                 <p className="font-mono text-xs text-faint">
                   {sent ? "✓ Opening your mail client…" : "Replies within 24h"}
                 </p>
-                <Magnetic>
-                  <Button type="submit" size="lg" className="group">
+                <Magnetic className="w-full sm:w-auto">
+                  <Button type="submit" size="lg" className="group w-full sm:w-auto">
                     Send Message
                     <Send
                       className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -162,7 +162,7 @@ export function Contact() {
             <Reveal direction="left" delay={0.1}>
               <div className="glass-deep rounded-2xl p-5">
                 <p className="mb-4 text-xs tracking-wide text-faint">Elsewhere on the internet</p>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {SOCIALS.map((s) => (
                     <motion.a
                       key={s.label}

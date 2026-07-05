@@ -8,8 +8,8 @@ import { ACHIEVEMENTS } from "@/lib/data";
 
 export function Achievements() {
   return (
-    <section id="achievements" className="relative scroll-mt-24 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="achievements" className="relative scroll-mt-24 py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="05 · Milestones"
           title={

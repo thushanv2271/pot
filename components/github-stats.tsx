@@ -136,7 +136,8 @@ const LEVEL_COLORS = [
 ];
 
 /* Perf: one IntersectionObserver on the wrapper and plain CSS transitions
- * with per-column delays — not 371 individually-observed motion elements. */
+ * with per-column delays — not 371 individually-observed motion elements.
+ * Cells use flex-1 columns so the full year fits any viewport width. */
 function ContributionGraph({ contribs }: { contribs: Contribution[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -148,15 +149,15 @@ function ContributionGraph({ contribs }: { contribs: Contribution[] }) {
   return (
     <div
       ref={ref}
-      className="overflow-x-auto pb-2"
+      className="w-full min-w-0"
       role="img"
       aria-label="GitHub contribution graph, last 12 months"
     >
-      <div className="flex min-w-max gap-[3px]">
+      <div className="flex w-full min-w-0 gap-[2px] sm:gap-[3px]">
         {weeks.map((week, wi) => (
           <div
             key={wi}
-            className="flex flex-col gap-[3px] transition-all duration-500 ease-out"
+            className="flex min-w-0 flex-1 flex-col gap-[2px] transition-all duration-500 ease-out sm:gap-[3px]"
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "translateY(0)" : "translateY(8px)",
@@ -167,13 +168,57 @@ function ContributionGraph({ contribs }: { contribs: Contribution[] }) {
               <span
                 key={day.date}
                 title={`${day.date}: ${day.count} contributions`}
-                className="h-[11px] w-[11px] rounded-[3px]"
+                className="aspect-square w-full min-w-0 rounded-[2px] sm:rounded-[3px]"
                 style={{ backgroundColor: LEVEL_COLORS[Math.min(day.level, 4)] }}
               />
             ))}
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function LanguageBars({
+  languages,
+  maxLang,
+}: {
+  languages: GhStats["languages"];
+  maxLang: number;
+}) {
+  return (
+    <div className="space-y-3 sm:space-y-4">
+      {languages.map((lang, i) => (
+        <div key={lang.name} className="min-w-0">
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <span className="flex min-w-0 items-center gap-2 text-sm text-dim">
+              <span
+                className="h-2.5 w-2.5 shrink-0 rounded-full"
+                style={{ backgroundColor: LANG_COLORS[lang.name] ?? "#3b82f6" }}
+                aria-hidden="true"
+              />
+              <span className="truncate">{lang.name}</span>
+            </span>
+            <span className="shrink-0 font-mono text-[11px] text-faint sm:text-xs">
+              {lang.count} repos
+            </span>
+          </div>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-mist">
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: `${(lang.count / maxLang) * 100}%` }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 + i * 0.08, duration: 0.8, ease: "easeOut" }}
+              className="h-full max-w-full rounded-full"
+              style={{
+                background: `linear-gradient(90deg, ${LANG_COLORS[lang.name] ?? "#3b82f6"}cc, ${
+                  LANG_COLORS[lang.name] ?? "#3b82f6"
+                }66)`,
+              }}
+            />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -196,8 +241,8 @@ export function GithubStats() {
   const maxLang = Math.max(...stats.languages.map((l) => l.count), 1);
 
   return (
-    <section id="github" className="relative scroll-mt-24 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="github" className="relative scroll-mt-24 py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="07 · Open Source"
           title={
@@ -222,7 +267,7 @@ export function GithubStats() {
                   style={{ color: tile.accent }}
                   aria-hidden="true"
                 />
-                <p className="font-display text-3xl font-semibold text-ink">
+                <p className="font-display text-2xl font-semibold text-ink sm:text-3xl">
                   <CountUp value={tile.value} />
                 </p>
                 <p className="mt-1 text-xs tracking-wide text-faint">{tile.label}</p>
@@ -231,63 +276,41 @@ export function GithubStats() {
           ))}
         </Stagger>
 
-        <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-[1.25fr_0.75fr]">
           {/* Contribution graph */}
-          <Reveal className="glass-deep rounded-3xl p-6 md:p-8">
-            <div className="mb-5 flex items-center justify-between">
-              <h3 className="font-display font-semibold text-ink">Contribution graph</h3>
-              <span className="font-mono text-xs text-faint">last 12 months</span>
+          <Reveal className="glass-deep min-w-0 overflow-hidden rounded-2xl p-4 sm:rounded-3xl sm:p-6 md:p-8">
+            <div className="mb-4 flex flex-col gap-1 sm:mb-5 sm:flex-row sm:items-center sm:justify-between">
+              <h3 className="font-display text-sm font-semibold text-ink sm:text-base">
+                Contribution graph
+              </h3>
+              <span className="font-mono text-[11px] text-faint sm:text-xs">last 12 months</span>
             </div>
             {contribs ? (
               <ContributionGraph contribs={contribs} />
             ) : (
-              <div className="grid h-28 place-items-center rounded-xl border border-dashed border-line text-sm text-faint">
+              <div className="grid h-24 place-items-center rounded-xl border border-dashed border-line px-4 text-center text-xs text-faint sm:h-28 sm:text-sm">
                 Graph loads live from GitHub — view the profile if it&apos;s shy.
               </div>
             )}
-            <div className="mt-4 flex items-center justify-end gap-1.5 font-mono text-[11px] text-faint">
+            <div className="mt-3 flex flex-wrap items-center justify-end gap-1.5 font-mono text-[10px] text-faint sm:mt-4 sm:text-[11px]">
               Less
               {LEVEL_COLORS.map((c) => (
-                <span key={c} className="h-[10px] w-[10px] rounded-[3px]" style={{ backgroundColor: c }} />
+                <span
+                  key={c}
+                  className="h-2 w-2 shrink-0 rounded-[2px] sm:h-[10px] sm:w-[10px] sm:rounded-[3px]"
+                  style={{ backgroundColor: c }}
+                />
               ))}
               More
             </div>
           </Reveal>
 
           {/* Languages */}
-          <Reveal delay={0.1} className="glass-deep rounded-3xl p-6 md:p-8">
-            <h3 className="font-display mb-5 font-semibold text-ink">Most-used languages</h3>
-            <div className="space-y-4">
-              {stats.languages.map((lang, i) => (
-                <div key={lang.name}>
-                  <div className="mb-1.5 flex justify-between text-sm">
-                    <span className="flex items-center gap-2 text-dim">
-                      <span
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: LANG_COLORS[lang.name] ?? "#3b82f6" }}
-                        aria-hidden="true"
-                      />
-                      {lang.name}
-                    </span>
-                    <span className="font-mono text-xs text-faint">{lang.count} repos</span>
-                  </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-mist">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${(lang.count / maxLang) * 100}%` }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 + i * 0.08, duration: 0.8, ease: "easeOut" }}
-                      className="h-full rounded-full"
-                      style={{
-                        background: `linear-gradient(90deg, ${LANG_COLORS[lang.name] ?? "#3b82f6"}cc, ${
-                          LANG_COLORS[lang.name] ?? "#3b82f6"
-                        }66)`,
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+          <Reveal delay={0.1} className="glass-deep min-w-0 overflow-hidden rounded-2xl p-4 sm:rounded-3xl sm:p-6 md:p-8">
+            <h3 className="font-display mb-4 text-sm font-semibold text-ink sm:mb-5 sm:text-base">
+              Most-used languages
+            </h3>
+            <LanguageBars languages={stats.languages} maxLang={maxLang} />
           </Reveal>
         </div>
 

@@ -18,7 +18,7 @@ export function KineticDivider() {
     <section
       ref={ref}
       aria-hidden="true"
-      className="relative select-none overflow-hidden py-20 md:py-28"
+      className="relative select-none overflow-hidden py-14 sm:py-20 md:py-28"
     >
       <motion.div
         style={{
