@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="110"/></filter>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b82f6"/><stop offset="50%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#09090b"/>
+  <circle cx="220" cy="140" r="240" fill="#3b82f6" opacity="0.32" filter="url(#blur)"/>
+  <circle cx="1010" cy="500" r="260" fill="#a78bfa" opacity="0.28" filter="url(#blur)"/>
+  <g stroke="rgba(148,163,184,0.09)" stroke-width="1">
+    <line x1="0" y1="0" x2="0" y2="630"/><line x1="63" y1="0" x2="63" y2="630"/><line x1="126" y1="0" x2="126" y2="630"/><line x1="189" y1="0" x2="189" y2="630"/><line x1="252" y1="0" x2="252" y2="630"/><line x1="315" y1="0" x2="315" y2="630"/><line x1="378" y1="0" x2="378" y2="630"/><line x1="441" y1="0" x2="441" y2="630"/><line x1="504" y1="0" x2="504" y2="630"/><line x1="567" y1="0" x2="567" y2="630"/><line x1="630" y1="0" x2="630" y2="630"/><line x1="693" y1="0" x2="693" y2="630"/><line x1="756" y1="0" x2="756" y2="630"/><line x1="819" y1="0" x2="819" y2="630"/><line x1="882" y1="0" x2="882" y2="630"/><line x1="945" y1="0" x2="945" y2="630"/><line x1="1008" y1="0" x2="1008" y2="630"/><line x1="1071" y1="0" x2="1071" y2="630"/><line x1="1134" y1="0" x2="1134" y2="630"/><line x1="1197" y1="0" x2="1197" y2="630"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/><line x1="0" y1="63" x2="1200" y2="63"/><line x1="0" y1="126" x2="1200" y2="126"/><line x1="0" y1="189" x2="1200" y2="189"/><line x1="0" y1="252" x2="1200" y2="252"/><line x1="0" y1="315" x2="1200" y2="315"/><line x1="0" y1="378" x2="1200" y2="378"/><line x1="0" y1="441" x2="1200" y2="441"/><line x1="0" y1="504" x2="1200" y2="504"/><line x1="0" y1="567" x2="1200" y2="567"/>
+  </g>
+  <text x="90" y="255" font-family="'Space Grotesk','Segoe UI',sans-serif" font-size="88" font-weight="700" fill="#e8eaf2">Thushan Vithana</text>
+  <text x="90" y="340" font-family="'Space Grotesk','Segoe UI',sans-serif" font-size="46" font-weight="500" fill="url(#g)">Software Engineer</text>
+  <text x="90" y="420" font-family="'JetBrains Mono',monospace" font-size="24" fill="rgba(154,161,181,0.9)">.NET · React · Next.js · Azure — building software that feels effortless</text>
+  <rect x="90" y="470" width="150" height="4" rx="2" fill="url(#g)"/>
+</svg>
