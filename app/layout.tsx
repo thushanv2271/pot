@@ -65,6 +65,7 @@ export const viewport: Viewport = {
   themeColor: "#09090b",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 const personJsonLd = {
@@ -86,8 +87,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
     >
-      <body className="grain">
+      <body className="grain" suppressHydrationWarning>
         {/* Applies the stored theme before first paint — no flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{

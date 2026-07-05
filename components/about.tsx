@@ -38,7 +38,7 @@ function Portrait() {
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-        className="glass absolute -right-4 -bottom-5 rounded-2xl px-5 py-3.5 shadow-glow-blue md:-right-8"
+        className="glass absolute -right-2 -bottom-4 rounded-2xl px-4 py-3 shadow-glow-blue sm:-right-4 sm:px-5 sm:py-3.5 md:-right-8"
       >
         <p className="font-mono text-[11px] text-faint">currently at</p>
         <p className="font-display text-sm font-semibold text-ink">{SITE.company}</p>
@@ -97,8 +97,8 @@ function Timeline() {
 
 export function About() {
   return (
-    <section id="about" className="relative scroll-mt-24 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="about" className="relative scroll-mt-24 py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="01 · About"
           title={

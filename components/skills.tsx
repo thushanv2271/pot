@@ -18,8 +18,8 @@ export function Skills() {
   const active = SKILL_CATEGORIES.find((c) => c.id === activeId)!;
 
   return (
-    <section id="skills" className="relative scroll-mt-24 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="skills" className="relative scroll-mt-24 py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="02 · Skills"
           title={
@@ -30,11 +30,11 @@ export function Skills() {
           lead="Eight disciplines, one obsession: shipping software that feels effortless."
         />
 
-        {/* Category tabs */}
+        {/* Category tabs — horizontal scroll on small screens */}
         <div
           role="tablist"
           aria-label="Skill categories"
-          className="mb-10 flex flex-wrap justify-center gap-2.5"
+          className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:-mx-0 sm:mb-10 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           {SKILL_CATEGORIES.map((cat) => {
             const selected = cat.id === activeId;
@@ -46,7 +46,7 @@ export function Skills() {
                 aria-controls={`skills-panel-${cat.id}`}
                 onClick={() => setActiveId(cat.id)}
                 className={cn(
-                  "relative flex items-center gap-2 rounded-full px-4 py-2.5 text-sm transition-colors duration-300",
+                  "relative flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-sm transition-colors duration-300 sm:px-4 sm:py-2.5",
                   selected ? "text-ink" : "text-dim hover:text-ink"
                 )}
               >

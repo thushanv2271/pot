@@ -56,7 +56,10 @@ export function AmbientBackground() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      const count = Math.min(70, Math.floor((width * height) / 26000));
+      const count = Math.min(
+        window.matchMedia("(max-width: 767px)").matches ? 35 : 70,
+        Math.floor((width * height) / 26000)
+      );
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,

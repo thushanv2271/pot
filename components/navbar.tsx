@@ -49,11 +49,11 @@ export function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.21, 0.6, 0.35, 1] }}
-      className="fixed inset-x-0 top-0 z-50"
+      className="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)]"
     >
       <div
         className={cn(
-          "mx-auto flex h-16 max-w-6xl items-center justify-between px-5 transition-all duration-500 md:px-8",
+          "mx-auto flex h-14 max-w-6xl items-center justify-between px-4 transition-all duration-500 sm:h-16 sm:px-5 md:px-8",
           scrolled &&
             "glass glass-blur mt-3 max-w-5xl rounded-2xl shadow-[0_16px_40px_-20px_rgba(0,0,0,0.35)]"
         )}
@@ -126,7 +126,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="glass glass-blur mx-4 mt-2 flex flex-col gap-1 rounded-2xl p-3 md:hidden"
+            className="glass glass-blur mx-3 mt-2 flex max-h-[calc(100dvh-5rem-env(safe-area-inset-top,0px))] flex-col gap-1 overflow-y-auto rounded-2xl p-3 sm:mx-4 md:hidden"
             aria-label="Mobile"
           >
             {NAV_LINKS.map((link, i) => (

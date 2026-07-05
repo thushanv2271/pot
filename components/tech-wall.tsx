@@ -21,8 +21,8 @@ export function TechWall() {
   const skewX = useTransform(smoothVelocity, [-2500, 2500], [8, -8]);
 
   return (
-    <section id="stack" className="relative scroll-mt-24 overflow-hidden py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="stack" className="relative scroll-mt-24 overflow-hidden py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="06 · Arsenal"
           title={
@@ -54,7 +54,7 @@ export function TechWall() {
                   key={`${tech}-${i}`}
                   whileHover={{ y: -6, scale: 1.06 }}
                   transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className="glass-deep flex cursor-default items-center gap-3 rounded-2xl px-6 py-4 font-display text-base font-medium whitespace-nowrap text-dim transition-colors duration-300 hover:text-ink"
+                  className="glass-deep flex cursor-default items-center gap-0.5 rounded-xl px-4 py-3 font-display text-sm font-medium whitespace-nowrap text-dim transition-colors duration-300 hover:text-ink sm:gap-3 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
                   style={{ boxShadow: "var(--shadow-neu)" }}
                 >
                   <span

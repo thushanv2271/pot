@@ -25,8 +25,8 @@ export function Testimonials() {
   const current = TESTIMONIALS[index];
 
   return (
-    <section id="testimonials" className="relative scroll-mt-24 py-24 md:py-32">
-      <div className="mx-auto max-w-4xl px-5 md:px-8">
+    <section id="testimonials" className="relative scroll-mt-24 py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8">
         <SectionHeading
           eyebrow="08 · Kind Words"
           title={
@@ -37,9 +37,9 @@ export function Testimonials() {
         />
 
         <div className="relative">
-          <div className="glass-deep border-gradient relative min-h-[280px] overflow-hidden rounded-3xl p-8 md:min-h-[240px] md:p-12">
+          <div className="glass-deep border-gradient relative min-h-[240px] overflow-hidden rounded-3xl p-6 sm:min-h-[260px] md:min-h-[240px] md:p-12">
             <Quote
-              className="absolute top-7 left-8 h-10 w-10 text-electric/20 md:h-14 md:w-14"
+              className="absolute top-5 left-5 h-8 w-8 text-electric/20 sm:top-7 sm:left-8 sm:h-10 sm:w-10 md:h-14 md:w-14"
               aria-hidden="true"
             />
             <AnimatePresence mode="wait" custom={direction}>
@@ -50,9 +50,9 @@ export function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction >= 0 ? -60 : 60 }}
                 transition={{ duration: 0.45, ease: [0.21, 0.6, 0.35, 1] }}
-                className="relative pt-8 md:pt-6 md:pl-16"
+                className="relative pt-6 sm:pt-8 md:pt-6 md:pl-16"
               >
-                <blockquote className="text-lg leading-relaxed text-ink/90 md:text-xl">
+                <blockquote className="text-base leading-relaxed text-ink/90 sm:text-lg md:text-xl">
                   “{current.quote}”
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-4">

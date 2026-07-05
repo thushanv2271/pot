@@ -17,7 +17,7 @@ export function SectionHeading({
 }) {
   const centered = align === "center";
   return (
-    <div className={cn("mb-14 md:mb-20", centered ? "text-center" : "text-left")}>
+    <div className={cn("mb-12 sm:mb-14 md:mb-20", centered ? "text-center" : "text-left")}>
       <Reveal>
         <p
           className={cn(
@@ -35,7 +35,7 @@ export function SectionHeading({
           whileInView={{ y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.85, delay: 0.05, ease: [0.21, 0.6, 0.35, 1] }}
-          className="font-display text-4xl font-semibold tracking-tight text-balance md:text-5xl"
+          className="font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl"
         >
           {title}
         </motion.h2>
@@ -44,7 +44,7 @@ export function SectionHeading({
         <Reveal delay={0.16}>
           <p
             className={cn(
-              "mt-5 max-w-2xl text-base leading-relaxed text-dim md:text-lg",
+              "mt-4 max-w-2xl text-sm leading-relaxed text-dim sm:mt-5 sm:text-base md:text-lg",
               centered && "mx-auto"
             )}
           >

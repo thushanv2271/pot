@@ -27,7 +27,7 @@ export default function Home() {
       {/* fades content that scrolls past the floating nav island */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 top-0 z-40 h-24 bg-gradient-to-b from-void via-void/70 to-transparent"
+        className="pointer-events-none fixed inset-x-0 top-0 z-40 h-16 bg-gradient-to-b from-void via-void/70 to-transparent sm:h-24"
       />
       <Navbar />
       <main className="relative z-10">
