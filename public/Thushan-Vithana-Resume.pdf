@@ -1,0 +1,58 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 1834 >>
+stream
+BT
+/F2 26 Tf 1 0 0 1 60 737 Tm (Thushan Vithana) Tj
+/F1 13 Tf 1 0 0 1 60 717 Tm (Software Engineer - Azend Technologies) Tj
+/F1 10 Tf 1 0 0 1 60 700 Tm (Colombo, Sri Lanka  |  thushan.v@azendtech.com  |  github.com/thushanvithana) Tj
+/F2 13 Tf 1 0 0 1 60 670 Tm (Summary) Tj
+/F1 10 Tf 1 0 0 1 60 653 Tm (Full-stack software engineer crafting fast, elegant products with .NET, React and) Tj
+/F1 10 Tf 1 0 0 1 60 636 Tm (Next.js - where engineering precision meets expressive, tactile interfaces.) Tj
+/F2 13 Tf 1 0 0 1 60 606 Tm (Experience) Tj
+/F2 11 Tf 1 0 0 1 60 588 Tm (Associate Software Engineer - Azend Technologies \(2024 - Present\)) Tj
+/F1 10 Tf 1 0 0 1 60 571 Tm (ASP.NET Core APIs, Entity Framework data layers, React + TypeScript frontends,) Tj
+/F1 10 Tf 1 0 0 1 60 554 Tm (Docker deployments to Azure and Fly.io; testing with xUnit and NUnit.) Tj
+/F2 11 Tf 1 0 0 1 60 536 Tm (Full-Stack Developer - Freelance & Open Source \(2022 - 2024\)) Tj
+/F1 10 Tf 1 0 0 1 60 519 Tm (Delivered MERN-stack applications end to end; built Scholar, a school-management) Tj
+/F1 10 Tf 1 0 0 1 60 502 Tm (platform on React + .NET.) Tj
+/F2 13 Tf 1 0 0 1 60 472 Tm (Skills) Tj
+/F1 10 Tf 1 0 0 1 60 455 Tm (C#, ASP.NET Core, Entity Framework, SQL Server, Azure, Docker, TypeScript,) Tj
+/F1 10 Tf 1 0 0 1 60 438 Tm (JavaScript, React, Next.js, Node.js, MongoDB, xUnit, NUnit, Git, REST APIs) Tj
+/F2 13 Tf 1 0 0 1 60 408 Tm (Selected Projects) Tj
+/F1 10 Tf 1 0 0 1 60 391 Tm (Scholar Web App - school-management platform \(React, Material UI, C#/.NET\)) Tj
+/F1 10 Tf 1 0 0 1 60 374 Tm (MERN Stack Platform - full-stack JavaScript application) Tj
+/F1 10 Tf 1 0 0 1 60 357 Tm (Hotel Management System - C++ design-pattern architecture exercise) Tj
+/F1 10 Tf 1 0 0 1 60 340 Tm (Smart Task Manager - C# service layer with a JavaScript frontend) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2282
+%%EOF

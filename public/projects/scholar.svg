@@ -1,54 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Scholar Web App cover art">
   <defs>
-    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="90"/>
-    </filter>
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>
-      <feColorMatrix in="n" type="saturate" values="0"/>
-      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
-      <feComposite operator="over" in2="SourceGraphic"/>
-    </filter>
-    <radialGradient id="vig" cx="50%" cy="42%" r="75%">
-      <stop offset="55%" stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.7"/>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="95"/></filter>
+    <radialGradient id="vig" cx="50%" cy="42%" r="78%">
+      <stop offset="55%" stop-color="#09090b" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="0.82"/>
     </radialGradient>
-    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1f4bff" stop-opacity="0.9"/>
-      <stop offset="50%" stop-color="#00e0c6" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#7a00ff" stop-opacity="0.9"/>
+    <linearGradient id="ln" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#a78bfa"/>
     </linearGradient>
   </defs>
-
-  <rect width="1200" height="800" fill="#0a0a0a"/>
-
-  <!-- iridescent light blobs -->
-  <circle cx="360" cy="300" r="280" fill="#1f4bff" opacity="0.55" filter="url(#blur)"/>
-  <circle cx="820" cy="240" r="240" fill="#00e0c6" opacity="0.45" filter="url(#blur)"/>
-  <circle cx="640" cy="560" r="320" fill="#7a00ff" opacity="0.4" filter="url(#blur)"/>
-
-  <!-- faint technical grid -->
-  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="1">
-    <line x1="0" y1="0" x2="0" y2="800"/><line x1="120" y1="0" x2="120" y2="800"/><line x1="240" y1="0" x2="240" y2="800"/><line x1="360" y1="0" x2="360" y2="800"/><line x1="480" y1="0" x2="480" y2="800"/><line x1="600" y1="0" x2="600" y2="800"/><line x1="720" y1="0" x2="720" y2="800"/><line x1="840" y1="0" x2="840" y2="800"/><line x1="960" y1="0" x2="960" y2="800"/><line x1="1080" y1="0" x2="1080" y2="800"/><line x1="1200" y1="0" x2="1200" y2="800"/>
-    <line x1="0" y1="0" x2="1200" y2="0"/><line x1="0" y1="120" x2="1200" y2="120"/><line x1="0" y1="240" x2="1200" y2="240"/><line x1="0" y1="360" x2="1200" y2="360"/><line x1="0" y1="480" x2="1200" y2="480"/><line x1="0" y1="600" x2="1200" y2="600"/><line x1="0" y1="720" x2="1200" y2="720"/>
+  <rect width="1200" height="800" fill="#0b0b10"/>
+  <circle cx="330" cy="290" r="270" fill="#3b82f6" opacity="0.5" filter="url(#blur)"/>
+  <circle cx="860" cy="230" r="230" fill="#22d3ee" opacity="0.38" filter="url(#blur)"/>
+  <circle cx="640" cy="590" r="300" fill="#a78bfa" opacity="0.34" filter="url(#blur)"/>
+  <g stroke="rgba(148,163,184,0.10)" stroke-width="1">
+    <line x1="0" y1="0" x2="0" y2="800"/><line x1="63" y1="0" x2="63" y2="800"/><line x1="126" y1="0" x2="126" y2="800"/><line x1="189" y1="0" x2="189" y2="800"/><line x1="252" y1="0" x2="252" y2="800"/><line x1="315" y1="0" x2="315" y2="800"/><line x1="378" y1="0" x2="378" y2="800"/><line x1="441" y1="0" x2="441" y2="800"/><line x1="504" y1="0" x2="504" y2="800"/><line x1="567" y1="0" x2="567" y2="800"/><line x1="630" y1="0" x2="630" y2="800"/><line x1="693" y1="0" x2="693" y2="800"/><line x1="756" y1="0" x2="756" y2="800"/><line x1="819" y1="0" x2="819" y2="800"/><line x1="882" y1="0" x2="882" y2="800"/><line x1="945" y1="0" x2="945" y2="800"/><line x1="1008" y1="0" x2="1008" y2="800"/><line x1="1071" y1="0" x2="1071" y2="800"/><line x1="1134" y1="0" x2="1134" y2="800"/><line x1="1197" y1="0" x2="1197" y2="800"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/><line x1="0" y1="63" x2="1200" y2="63"/><line x1="0" y1="126" x2="1200" y2="126"/><line x1="0" y1="189" x2="1200" y2="189"/><line x1="0" y1="252" x2="1200" y2="252"/><line x1="0" y1="315" x2="1200" y2="315"/><line x1="0" y1="378" x2="1200" y2="378"/><line x1="0" y1="441" x2="1200" y2="441"/><line x1="0" y1="504" x2="1200" y2="504"/><line x1="0" y1="567" x2="1200" y2="567"/><line x1="0" y1="630" x2="1200" y2="630"/><line x1="0" y1="693" x2="1200" y2="693"/><line x1="0" y1="756" x2="1200" y2="756"/><line x1="0" y1="819" x2="1200" y2="819"/>
   </g>
-
+  <g transform="translate(600,385)">
+    <rect x="-140" y="-140" width="280" height="280" rx="56" fill="rgba(255,255,255,0.045)" stroke="url(#ln)" stroke-width="2"/>
+    <text x="0" y="34" text-anchor="middle" font-family="'Space Grotesk','Segoe UI',sans-serif" font-size="104" font-weight="600" fill="url(#ln)">SW</text>
+  </g>
+  <text x="600" y="640" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="26" letter-spacing="10" fill="rgba(232,234,242,0.75)">SCHOLAR WEB APP</text>
   <rect width="1200" height="800" fill="url(#vig)"/>
-  <rect width="1200" height="800" filter="url(#grain)" opacity="0.5"/>
-
-  <!-- giant index numeral -->
-  <text x="60" y="700" font-family="Times New Roman, serif" font-size="360"
-        fill="#ffffff" fill-opacity="0.06" font-weight="400">01</text>
-
-  <!-- title -->
-  <text x="60" y="430" font-family="Times New Roman, serif" font-size="118"
-        fill="url(#sheen)" letter-spacing="2">SCHOLAR</text>
-  <text x="64" y="490" font-family="Helvetica, Arial, sans-serif" font-size="26"
-        fill="#cfcfca" letter-spacing="6" text-transform="uppercase">REACT · MATERIAL UI · C#</text>
-
-  <!-- corner ticks -->
-  <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" fill="none">
-    <path d="M40 40 h40 M40 40 v40"/>
-    <path d="M1160 760 h-40 M1160 760 v-40"/>
-  </g>
 </svg>
